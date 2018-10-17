@@ -18,7 +18,10 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
-
+                <li class="{{ active_class(if_route('topics.index')) }}"><a href="{{ route('topics.index') }}">话题</a></li>
+                @foreach(get_category() as $cate)
+                    <li class="{{active_class(if_route('categories.show') && if_route_param('category',$cate['id']))}}"><a href="{{route('categories.show',$cate['id'])}}">{{$cate['name']}}</a></li>
+                @endforeach
             </ul>
 
             <!-- Right Side Of Navbar -->
