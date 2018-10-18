@@ -7,7 +7,7 @@ function route_class()
 
 function get_category()
 {
-    return \App\Models\Category::all()->toArray();
+    return \App\Models\Category::all();
 }
 
 function make_excerpt($value, $length = 200)
