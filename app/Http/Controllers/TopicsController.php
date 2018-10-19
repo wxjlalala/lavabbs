@@ -23,8 +23,13 @@ class TopicsController extends Controller
 		return view('topics.index', compact('topics'));
 	}
 
-    public function show(Topic $topic)
+    public function show(Request $request, Topic $topic)
     {
+        // url 矫正，强制跳转seo友好的url
+        if(!empty($topic->slug) && $topic->slug != $request->slug){
+            return redirect($topic->link(),301);
+        }
+
         return view('topics.show', compact('topic'));
     }
 
@@ -39,7 +44,7 @@ class TopicsController extends Controller
         $topic->fill($request->all());
 		$topic->user_id = Auth::id();
 		$topic->save();
-		return redirect()->route('topics.show', $topic->id)->with('message', '话题创建成功!');
+		return redirect()->to($topic->link())->with('message', '话题创建成功!');
 	}
 
 	public function edit(Topic $topic)
@@ -53,7 +58,7 @@ class TopicsController extends Controller
 		$this->authorize('update', $topic);
 		$topic->update($request->all());
 
-		return redirect()->route('topics.show', $topic->id)->with('message', '话题修改成功！');
+		return redirect()->to($topic->link())->with('message', '话题修改成功！');
 	}
 
 	public function destroy(Topic $topic)
