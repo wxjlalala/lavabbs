@@ -63,6 +63,10 @@ class User extends Authenticatable
         $this->unreadNotifications->markAsRead();
     }
 
+    /**
+     * 修改器 set(字段驼峰命名)Attribute
+     * @param $value
+     */
     public function setPasswordAttribute($value)
     {
         if (strlen($value) != 60) {
