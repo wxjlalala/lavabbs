@@ -7,7 +7,7 @@ return [
     'single'  => '分类',
     'model'   => Category::class,
 
-    // 对 CRUD 动作的单独权限控制，其他动作不指定默认为通过
+    // 对 CRUD 动作的【单独】权限控制，其他动作不指定默认为通过
     'action_permissions' => [
         // 删除权限控制
         'delete' => function () {
