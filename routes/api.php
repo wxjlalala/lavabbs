@@ -18,13 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 $api = app('Dingo\Api\Routing\Router');
-$api->version('v1',function ($api){
-    $api->get('version', function (){
-        return response('this is v1');
-    });
-});
-$api->version('v2',function ($api){
-    $api->get('version',function(){
-        return response('this is v2');
-    });
+$api->version('v1', [
+    'namespace' => 'App\Http\Controllers\Api'
+], function($api) {
+    // 短信验证码
+    $api->post('verificationCodes', 'VerificationCodesController@store')->name('api.verificationCodes.store');
 });
