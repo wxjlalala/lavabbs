@@ -12,6 +12,7 @@ class VerificationCodesController extends Controller
     {
         $phone = $request->phone;
 
+
         // 生成4位随机数，左侧补0
         $code = str_pad(random_int(1, 9999), 4, 0, STR_PAD_LEFT);
 //        if (!app()->environment('production')) {
