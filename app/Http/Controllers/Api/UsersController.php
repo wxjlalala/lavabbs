@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\UserRequest;
 use App\Models\User;
+use App\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -30,6 +31,17 @@ class UsersController extends Controller
         // 清除验证码缓存
         \Cache::forget($request->verification_key);
 
-        return $this->response->created();
+        return $this->response->item($user,new UserTransformer())->setMeta([
+            'access_token' => \Auth::guard('api')->fromUser($user),
+            'token_type' => 'Bearer',
+            'expires_in' =>\Auth::guard('api')->factory()->getTTL()*60
+        ]);
     }
+
+    public function me()
+    {
+        // $this->user() 等同于\Auth::guard('api')->user()
+        return $this->response->item($this->user(),new UserTransformer());
+    }
+
 }
