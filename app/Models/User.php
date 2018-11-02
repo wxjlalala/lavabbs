@@ -91,6 +91,7 @@ class User extends Authenticatable implements JWTSubject
         $this->attributes['avatar'] = $path;
     }
 
+    // 返回模型的 id，一般直接使用 $this->getKey() 返回模型主键。
     public function getJWTIdentifier()
     {
         return $this->getKey();
